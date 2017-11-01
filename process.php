@@ -1,16 +1,26 @@
 <?php
 
-require 'vendor/autoload.php';
+namespace li;
 
 use GuzzleHttp\Client;
 
+require 'vendor/autoload.php';
+
+$config = new \li\Config\Config();
+
 session_start();
+
 $message = $_GET['q'];
+
+if ($_GET['q'] === '') {
+	header('Location: index.php');
+	die();
+}
 
 $client = new Client([
 	'base_uri' => 'https://api.wit.ai/message',
 	'headers' => [
-		'Authorization' => 'Bearer O6CZUAESH7OJLD43VFZ7NEWTCAMPVOLH',
+		'Authorization' => 'Bearer '.$config->witToken,
 	],
 	'query' => [
 		'v' => 20171020,

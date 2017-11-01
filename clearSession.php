@@ -1,5 +1,7 @@
 <?php
 
+namespace li;
+
 session_start();
 session_destroy();
 

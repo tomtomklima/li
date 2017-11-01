@@ -1,5 +1,15 @@
 # Chatbot
 
+## Flow
+
+Začínáme originálně na `index.php`. Tam pomocí JS (**funkční na Linux\Chromium, nefunkční ve Linux\Firefox!**) uživatel po kliknutí na mikrofon hlasově zadá vstup, potom se automaticky odešle formulář na stránku `process.php`. Pokud mikrofon není vidět, hlasový vstup není podporovaný. 
+
+Soubor `process.php` pošle CURL dotaz na wit.ai, vyparsuje výsledek a uloží ho do `$_SESSION` proměnné. Potom vyvolá opět `index.php`, který proměnné vypisuje. 
+
+Pomocný soubor `clearSession.php` pouze vymaže celou proměnnou `$_SESSION` a vyvolá zpět `index.php`. 
+
+Všechna nastavení jsou v souboru `Config/settings.ini`. 
+
 ## Deadlines (a deliverables):
 
  - 23/10: Specifikace semestrálního projektu. Seznam osob, zvolená technologie, role v teamu, jednoduchý popis prvního usecase. Rozsah cca 1 A4, PDF.
