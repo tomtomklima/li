@@ -1,5 +1,7 @@
 # Chatbot
 
+[odkaz na specifikaci](https://docs.google.com/document/d/14DRHdTtwY4aQcFWJZlGKAe5Y4F5RFz9tmOefzaeQu2g/edit?usp=sharing)
+
 ## Flow
 
 Začínáme originálně na `index.php`. Tam pomocí JS (**funkční na Linux\Chromium, nefunkční ve Linux\Firefox!**) uživatel po kliknutí na mikrofon hlasově zadá vstup, potom se automaticky odešle formulář na stránku `process.php`. Pokud mikrofon není vidět, hlasový vstup není podporovaný. 
