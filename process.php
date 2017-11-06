@@ -6,11 +6,16 @@ use GuzzleHttp\Client;
 
 require 'vendor/autoload.php';
 
-$config = new \li\Config\Config();
+// Exceptions handler
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
+
+$config = new Config\Config();
 
 session_start();
 
-$message = $_GET['q'];
+$_SESSION['chat'][] = '🙎: '.$message = $_GET['q'];
 
 if ($_GET['q'] === '') {
 	header('Location: index.php');
@@ -23,63 +28,24 @@ $client = new Client([
 		'Authorization' => 'Bearer '.$config->witToken,
 	],
 	'query' => [
-		'v' => 20171020,
+		'v' => 20171105,
 		'q' => $message,
 	]]);
 
 $response = $client->get('');
 
-$contents = json_decode($response->getBody()->getContents());
-
-$entities = $contents->entities;
+$entities = json_decode($response->getBody()->getContents())->entities;
 
 if (isset($entities->bye)) {
 	header('Location: clearSession.php');
 	die();
 }
 
-if (isset($entities->datetime)) {
-	$_SESSION['date'] = date('d. m Y', strtotime($entities->datetime[0]->value));
-} else {
-	$_SESSION['answer'] = 'Please, say desired date for therapist check. ';
+foreach ($entities as $entityName => $entityValues) {
+	$_SESSION[$entityName ] = $entityValues[0]->value;
 }
 
-if (isset($entities->email)) {
-	$_SESSION['email'] = $entities->email[0]->value;
-} else {
-	$_SESSION['answer'] = 'Please, say desired date for therapist check. ';
-}
-
-if (isset($entities->illness)) {
-	$_SESSION['problem'] = $entities->illness[0]->value;
-}
-
-if (isset($entities->contact)) {
-	$_SESSION['name'] = $entities->contact[0]->value;
-}
-
-if (isset($_SESSION['name'], $_SESSION['problem'], $_SESSION['email'], $_SESSION['date'])) {
-	$_SESSION['answer'] = 'Thanks for your input! Now you may erase all your information by saying Bye!';
-}
-
-$_SESSION['last'] = $contents->_text;
-
-// bot answer
-
-if (!isset($_SESSION['email'])) {
-	$_SESSION['answer'] = 'Get us your email for futher contact. ';
-}
-
-if (!isset($_SESSION['date'])) {
-	$_SESSION['answer'] = 'Pick the date for examination. ';
-}
-
-if (!isset($_SESSION['problem'])) {
-	$_SESSION['answer'] = 'Describe your problem or illness please. ';
-}
-
-if (!isset($_SESSION['name'])) {
-	$_SESSION['answer'] = 'Please, say desired date for therapist check. ';
-}
+$sense = new Sense\IfDecision($_SESSION);
+$_SESSION['chat'][] = '🤖: '.$sense->getAnswerBasedOnConditions();
 
 header('Location: index.php');

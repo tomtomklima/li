@@ -4,19 +4,6 @@ namespace li;
 
 session_start();
 
-$name = isset($_SESSION['name']) ? $_SESSION['name'] : '<i>unknown</i>';
-$age = isset($_SESSION['age']) ? $_SESSION['age'] : '<i>unknown</i>';
-$date = isset($_SESSION['date']) ? $_SESSION['date'] : '<i>unknown</i>';
-$problem = isset($_SESSION['problem']) ? $_SESSION['problem'] : '<i>unknown</i>';
-$email = isset($_SESSION['email']) ? $_SESSION['email'] : '<i>unknown</i>';
-
-if (!isset($_SESSION['answer'])) {
-	$_SESSION['answer'] = 'Hello stranger! Please start by introduce yourself!';
-}
-
-if (!isset($_SESSION['last'])) {
-	$_SESSION['last'] = '<i>You said nothing yet. </i>';
-}
 ?>
 
 <!DOCTYPE html>
@@ -27,32 +14,30 @@ if (!isset($_SESSION['last'])) {
 	<link rel="stylesheet" href="speech-input/speech-input.css">
 </head>
 <body>
-<h1>Reservation to a doctor</h1>
-<ul>
-	<li>Name of pacient: <b><?= $name ?></b></li>
-	<!-- <li>Age of pacient: <b><?= $age ?></b></li> -->
-	<li>Date of reservation: <b><?= $date ?></b></li>
-	<li>Description of a problem: <b><?= $problem ?></b></li>
-	<li>Patient's email: <b><?= $email ?></b></li>
-</ul>
+<h1>Diagnosis chatbot</h1>
 
-<h2><?= $_SESSION['answer']; ?></h2>
+<h3>🤖: Welcome, what are your symptoms?</h3>
+<?php
+foreach ($_SESSION['chat'] as $sentence) {
+	echo '<h3>'.htmlentities($sentence, ENT_QUOTES).'</h3>';
+} ?>
 <form action="process.php">
 	<label>
-		Say your order to a bot: <input name="q" type="text" class="speech-input" data-patience="2"
-										data-instant-submit>
-		<= click on a mic, your reservation will be autosend
+		<input name="q" type="text" class="speech-input" data-patience="2"
+			   data-instant-submit required="required">
 	</label>
 	<input type="submit" hidden="hidden">
 </form>
-Your last message was: <i><?= $_SESSION['last'] ?></i>
 <br/>
 <br/>
 
-You may start over by saying Bye! or by click on this button:
-<a href="clearSession.php">
-	<button>Start again!</button>
-</a>
+<p>You may start over by saying Bye! or by click on this button:
+	<a href="clearSession.php">
+		<button>Start again!</button>
+	</a></p>
+
+<p>What do we know yet: </p>
+<?php htmlentities(var_dump($_SESSION), ENT_QUOTES); ?>
 
 <script src="speech-input/speech-input.js"></script>
 </body>
