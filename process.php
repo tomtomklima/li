@@ -42,10 +42,20 @@ if (isset($entities->bye)) {
 }
 
 foreach ($entities as $entityName => $entityValues) {
-	$_SESSION[$entityName ] = $entityValues[0]->value;
+	$_SESSION['data'][$entityName] = $entityValues[0]->value;
+	$freshAnswer[$entityName] = $entityValues[0]->value;
 }
 
-$sense = new Sense\IfDecision($_SESSION);
-$_SESSION['chat'][] = '🤖: '.$sense->getAnswerBasedOnConditions();
+$freshAnswerKey = $freshAnswerValue = '';
+// clear ambiguous questions
+foreach($freshAnswer as $key => $value) {
+	$freshAnswerKey = $key;
+	$freshAnswerValue = $value;
+	break;
+}
+
+$senseTree = new Sense\TreeDecision\Tree($_SESSION['currentNode'], $freshAnswerKey, $freshAnswerValue, $_SESSION['data']);
+
+$_SESSION['chat'][] = '🤖: '.$senseTree->getResponse();
 
 header('Location: index.php');
