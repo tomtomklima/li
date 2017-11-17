@@ -1,0 +1,24 @@
+{
+  "0": {
+	"question": "Hello, what and where is your problem?",
+	"neededDecisionEntity": "symptomes_painLocation",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "chest",
+		"nextNodeId": 1
+	  },
+	  {
+		"entityValue": "eye",
+		"nextNodeId": 2
+	  }
+	]
+  },
+  "1": {
+	"finalResponse": "DECISION => Hearth attack!"
+  },
+  "2": {
+	"finalResponse": "DECISION => Eye infection (or splinter)."
+  }
+}

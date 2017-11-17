@@ -48,13 +48,15 @@ foreach ($entities as $entityName => $entityValues) {
 
 $freshAnswerKey = $freshAnswerValue = '';
 // clear ambiguous questions
-foreach($freshAnswer as $key => $value) {
+foreach($freshAnswer ?? [] as $key => $value) {
 	$freshAnswerKey = $key;
 	$freshAnswerValue = $value;
 	break;
 }
 
-$senseTree = new Sense\TreeDecision\Tree($_SESSION['currentNode'], $freshAnswerKey, $freshAnswerValue, $_SESSION['data']);
+$currentNode = $_SESSION['currentNode'] ?? 0;
+
+$senseTree = new Sense\TreeDecision\Tree($currentNode, $freshAnswerKey, $freshAnswerValue, $_SESSION['data'] ?? []);
 
 $_SESSION['chat'][] = '🤖: '.$senseTree->getResponse();
 

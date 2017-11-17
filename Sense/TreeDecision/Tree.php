@@ -15,7 +15,7 @@ class Tree {
 		$this->freshAnswerKey = $freshAnswerKey;
 		$this->freshAnswerValue = $freshAnswerValue;
 		
-		$json = (file_get_contents('nodeData.json'));
+		$json = json_decode(file_get_contents(__DIR__.'/nodesData.json'));
 		$this->nodeData = new NodeDataJson($json->$currentNode);
 		
 		$this->node = new QuestionNode($knownData, $freshAnswerKey, $freshAnswerValue, $this->nodeData);
@@ -26,7 +26,7 @@ class Tree {
 			return $this->node->getFinalResponse();
 		}
 		
-		if ($this->node->isAnswerValid($this->freshAnswerKey)) {
+		if ($this->node->isFreshAnswerValid($this->freshAnswerKey)) {
 			$newEntity = $this->node->getNewEntity($this->freshAnswerValue);
 			$this->saveEntityIntoKnownBase($newEntity);
 			$this->node = new QuestionNode($this->knownData, $this->freshAnswerKey, $this->freshAnswerValue, $this->nodeData);
@@ -35,7 +35,7 @@ class Tree {
 		if ($this->node->hasAllInformation()) {
 			$nextNodeId = $this->node->getNextNodeId($this->freshAnswerValue);
 			$this->updateCurrentNode($nextNodeId);
-			$newTree = new Tree($nextNodeId, null, null, $this->knownData);
+			$newTree = new Tree($nextNodeId, "", "", $this->knownData);
 			return $newTree->getResponse();
 		}
 		
