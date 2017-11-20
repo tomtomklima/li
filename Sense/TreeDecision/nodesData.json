@@ -26,8 +26,8 @@
 		"nextNodeId": 4
 	  },
 	  {
-		"entityValue": "painLocation_chest",
-		"nextNodeId": 101
+		"entityValue": "no",
+		"nextNodeId": 104
 	  }
 	]
   },
@@ -65,8 +65,8 @@
   },
   "7": {
 	"question": "Do you suffer from any of following: bleeding, blurred vision, lost of sensitivity of some parts of your body?",
-	"neededDecisionEntity": "yesNo",
-	"supportedEntity": "",
+	"neededDecisionEntity": "symptomes_bleeding_blurredVision_lossOfSensitivity",
+	"supportedEntity": "yesNo",
 	"finalResponse": "",
 	"childs": [
 	  {
@@ -88,5 +88,8 @@
   },
   "103": {
 	"finalResponse": "Wait. If the pain persists, call an emergency."
+  },
+  "104": {
+	"finalResponse": "Not implemented yet."
   }
 }
