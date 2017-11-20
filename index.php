@@ -16,13 +16,14 @@ session_start();
 <body>
 <h1>Diagnosis chatbot</h1>
 
-<h3>🤖: Welcome, what are your symptoms?</h3>
+<h3>🤖: Hello. How do you feel?</h3>
 <?php
 foreach ($_SESSION['chat'] as $sentence) {
 	echo '<h3>'.htmlentities($sentence, ENT_QUOTES).'</h3>';
 } ?>
 <form action="process.php">
 	<label>
+		🙎:
 		<input name="q" type="text" class="speech-input" data-patience="2"
 			   data-instant-submit required="required">
 	</label>
@@ -36,7 +37,7 @@ foreach ($_SESSION['chat'] as $sentence) {
 		<button>Start again!</button>
 	</a></p>
 
-<p>What do we know yet: </p>
+<p>Overview persisting informations: </p>
 <?php htmlentities(var_dump($_SESSION), ENT_QUOTES); ?>
 
 <script src="speech-input/speech-input.js"></script>

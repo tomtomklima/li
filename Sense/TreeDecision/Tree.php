@@ -12,8 +12,8 @@ class Tree {
 	
 	public function __construct(int $currentNode, string $freshAnswerKey, string $freshAnswerValue, array $knownData) {
 		$this->knownData = $knownData;
-		$this->freshAnswerKey = $freshAnswerKey;
-		$this->freshAnswerValue = $freshAnswerValue;
+		$this->freshAnswerKey = $_SESSION['freshAnswerKey'] = $freshAnswerKey;
+		$this->freshAnswerValue = $_SESSION['freshAnswerValue'] = $freshAnswerValue;
 		
 		$json = json_decode(file_get_contents(__DIR__.'/nodesData.json'));
 		$this->nodeData = new NodeDataJson($json->$currentNode);
@@ -47,6 +47,7 @@ class Tree {
 	}
 	
 	private function saveEntityIntoKnownBase($entity) {
+		$this->knownData = $entity;
 		$_SESSION['data'] = $entity;
 	}
 }

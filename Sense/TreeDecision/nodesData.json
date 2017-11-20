@@ -1,24 +1,92 @@
 {
   "0": {
-	"question": "Hello, what and where is your problem?",
+	"question": "Where does it hurt?",
 	"neededDecisionEntity": "symptomes_painLocation",
 	"supportedEntity": "",
 	"finalResponse": "",
 	"childs": [
 	  {
-		"entityValue": "chest",
-		"nextNodeId": 1
+		"entityValue": "head",
+		"nextNodeId": 2
 	  },
 	  {
-		"entityValue": "eye",
-		"nextNodeId": 2
+		"entityValue": "chest",
+		"nextNodeId": 101
 	  }
 	]
   },
-  "1": {
-	"finalResponse": "DECISION => Hearth attack!"
-  },
   "2": {
-	"finalResponse": "DECISION => Eye infection (or splinter)."
+	"question": "Is it acute?",
+	"neededDecisionEntity": "state_acute",
+	"supportedEntity": "yesNo",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "yes",
+		"nextNodeId": 4
+	  },
+	  {
+		"entityValue": "painLocation_chest",
+		"nextNodeId": 101
+	  }
+	]
+  },
+  "4": {
+	"question": "Did you suffered an accident recently?",
+	"neededDecisionEntity": "context_accident",
+	"supportedEntity": "yesNo",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "yes",
+		"nextNodeId": 5
+	  },
+	  {
+		"entityValue": "no",
+		"nextNodeId": 101
+	  }
+	]
+  },
+  "5": {
+	"question": "Do you feel nauseous?",
+	"neededDecisionEntity": "symptomes_nauseous",
+	"supportedEntity": "yesNo",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "yes",
+		"nextNodeId": 102
+	  },
+	  {
+		"entityValue": "no",
+		"nextNodeId": 7
+	  }
+	]
+  },
+  "7": {
+	"question": "Do you suffer from any of following: bleeding, blurred vision, lost of sensitivity of some parts of your body?",
+	"neededDecisionEntity": "yesNo",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "yes",
+		"nextNodeId": 102
+	  },
+	  {
+		"entityValue": "no",
+		"nextNodeId": 103
+	  }
+	]
+  },
+  "101": {
+	"finalResponse": "You could have hearth stroke. Call na ambulance please."
+  },
+  "102": {
+	"finalResponse": "You have concussion, probably. Visit your physician immediately",
+	"action": "Life-threat! Calling an ambulance."
+  },
+  "103": {
+	"finalResponse": "Wait. If the pain persists, call an emergency."
   }
 }

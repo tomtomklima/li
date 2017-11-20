@@ -44,7 +44,7 @@ class QuestionNode {
 	}
 	
 	public function isFreshAnswerValid(string $freshAnswerKey): bool {
-		return $this->supportedEntity == $freshAnswerKey;
+		return ($this->supportedEntity != "") && ($this->supportedEntity == $freshAnswerKey);
 	}
 	
 	public function getNewEntity($freshAnswerValue): array {
@@ -53,7 +53,7 @@ class QuestionNode {
 	
 	public function getNextNodeId($freshAnswerValue): int {
 		try {
-		return $this->nextNodes[$freshAnswerValue];
+			return $this->nextNodes[$freshAnswerValue];
 		} catch (\Exception $e) {
 			throw new \Exception('Missing information for node with value "'.$freshAnswerValue.'"');
 		}
