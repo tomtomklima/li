@@ -12,6 +12,10 @@
 	  {
 		"entityValue": "chest",
 		"nextNodeId": 101
+	  },
+	  {
+		"entityValue": "gut",
+		"nextNodeId": 101
 	  }
 	]
   },
@@ -43,7 +47,7 @@
 	  },
 	  {
 		"entityValue": "no",
-		"nextNodeId": 101
+		"nextNodeId": 6
 	  }
 	]
   },
@@ -63,10 +67,34 @@
 	  }
 	]
   },
+  "6": {
+	"question": "How do you feel?",
+	"neededDecisionEntity": "symptomes_feeling",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "sick",
+		"nextNodeId": 8
+	  },
+	  {
+		"entityValue": "bad",
+		"nextNodeId": 8
+	  },
+	  {
+		"entityValue": "tired",
+		"nextNodeId": 8
+	  },
+	  {
+		"entityValue": "good",
+		"nextNodeId": 9
+	  }
+	]
+  },
   "7": {
 	"question": "Do you suffer from any of following: bleeding, blurred vision, lost of sensitivity of some parts of your body?",
-	"neededDecisionEntity": "symptomes_bleeding_blurredVision_lossOfSensitivity",
-	"supportedEntity": "yesNo",
+	"neededDecisionEntity": "yesNo",
+	"supportedEntity": "",
 	"finalResponse": "",
 	"childs": [
 	  {
@@ -79,6 +107,60 @@
 	  }
 	]
   },
+  "8": {
+	"question": "Can you touch your chest with your chin?",
+	"neededDecisionEntity": "yesNo",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "yes",
+		"nextNodeId": 104
+	  },
+	  {
+		"entityValue": "no",
+		"nextNodeId": 105
+	  }
+	]
+  },
+  "9": {
+	"question": "Do you suffer from any of following: dropped corner, lost of sensitivity of some parts of your body?",
+	"neededDecisionEntity": "yesNo",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "yes",
+		"nextNodeId": 106
+	  },
+	  {
+		"entityValue": "no",
+		"nextNodeId": 10
+	  }
+	]
+  },
+  "10": {
+	"question": "Ho would you describe the pain?",
+	"neededDecisionEntity": "symptomes_painType",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "intensive",
+		"nextNodeId": 106
+	  },
+	  {
+		"entityValue": "pressure",
+		"nextNodeId": 107
+	  },
+	  {
+		"entityValue": "stinging",
+		"nextNodeId": 107
+	  }
+	]
+  },
+
+
   "101": {
 	"finalResponse": "You could have hearth stroke. Call na ambulance please."
   },
@@ -90,6 +172,17 @@
 	"finalResponse": "Wait. If the pain persists, call an emergency."
   },
   "104": {
-	"finalResponse": "Not implemented yet."
+	"finalResponse": "Rhynitis."
+  },
+  "105": {
+	"finalResponse": "Meningitis.",
+	  "action": "Life-threat! Calling an ambulance."
+  },
+  "106": {
+	"finalResponse": "Stroke.",
+	  "action": "Life-threat! Calling an ambulance."
+  },
+  "107": {
+	"finalResponse": "Wait. If the pain persists, call an emergency."
   }
 }
