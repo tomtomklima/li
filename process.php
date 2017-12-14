@@ -3,6 +3,7 @@
 namespace li;
 
 use GuzzleHttp\Client;
+use function GuzzleHttp\default_ca_bundle;
 
 require 'vendor/autoload.php';
 
@@ -69,12 +70,20 @@ if (!isset($_SESSION['repetitionCounter'])) {
 }
 
 if (isset($_SESSION['lastAnswer']) && $_SESSION['lastAnswer'] == $answer) {
-	$answer = 'I didn\'t understand you, please rephrase your answer.';
-	
 	$_SESSION['repetitionCounter']++;
 	
-	if ($_SESSION['repetitionCounter'] >= 3) {
-		$answer = 'Sorry, I do not understand you at all. Calling human operator now.';
+	switch ($_SESSION['repetitionCounter']) {
+		case 1:
+			$answer = 'I didn\'t understand you, please rephrase your answer.';
+			break;
+		case 2:
+			$answer = 'I didn\'t understand you again, please rephrase your answer one more time?';
+			break;
+		case 3:
+			$answer = 'Sorry, I do not understand you at all. Calling human operator now.';
+			break;
+		default:
+			throw new \Exception('Bad count in $_SESSION[repetitionCounter]');
 	}
 } else {
 	$_SESSION['repetitionCounter'] = 0;
