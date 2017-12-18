@@ -159,6 +159,106 @@
 	  }
 	]
   },
+  "11": {
+	"question": "What you ate recently?",
+	"neededDecisionEntity": "symptomes_food",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "mushrooms",
+		"nextNodeId": 101
+	  },
+	  {
+		"entityValue": "something",
+		"nextNodeId": 101
+	  }
+	]
+  },
+  "12": {
+	"question": "Please, describe your family cardiac diseases history.",
+	"neededDecisionEntity": "context_predispositionCRHF",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "true",
+		"nextNodeId": 13
+	  },
+	  {
+		"entityValue": "false",
+		"nextNodeId": 13
+	  }
+	]
+  },
+  "13": {
+	"question": "Ho would you describe the pain?",
+	"neededDecisionEntity": "symptomes_painType",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "intensive",
+		"nextNodeId": 15
+	  },
+	  {
+		"entityValue": "pressure",
+		"nextNodeId": 15
+	  },
+	  {
+		"entityValue": "stinging",
+		"nextNodeId": 15
+	  },
+	  {
+		"entityValue": "firing",
+		"nextNodeId": 15
+	  },
+	  {
+		"entityValue": "clutching",
+		"nextNodeId": 15
+	  },
+	  {
+		"entityValue": "short",
+		"nextNodeId": 108
+	  },
+	  {
+		"entityValue": "burning",
+		"nextNodeId": 14
+	  }
+	]
+  },
+  "14": {
+	"question": "Does it happen after eating?",
+	"neededDecisionEntity": "context_eating",
+	"supportedEntity": "yesNo",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "yes",
+		"nextNodeId": 111
+	  },
+	  {
+		"entityValue": "no",
+		"nextNodeId": 15
+	  }
+	]
+  },
+  "15": {
+	"question": "Is it lasting for longer than 20 minutes?",
+	"neededDecisionEntity": "yesNo",
+	"supportedEntity": "",
+	"finalResponse": "",
+	"childs": [
+	  {
+		"entityValue": "yes",
+		"nextNodeId": 109
+	  },
+	  {
+		"entityValue": "no",
+		"nextNodeId": 110
+	  }
+	]
+  },
 
 
   "101": {
@@ -184,5 +284,18 @@
   },
   "107": {
 	"finalResponse": "Wait. If the pain persists, call an emergency."
+  },
+  "108": {
+	"finalResponse": "Don't worry. If it strikes again, visit your GP.."
+  },
+  "109": {
+	"finalResponse": "Heart attack.",
+	  "action": "Life-threat! Calling an ambulance."
+  },
+  "110": {
+	"finalResponse": "Visit your GP."
+  },
+  "111": {
+	"finalResponse": "Ulcers"
   }
 }
