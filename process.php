@@ -3,6 +3,7 @@
 namespace li;
 
 use GuzzleHttp\Client;
+use function GuzzleHttp\default_ca_bundle;
 
 require 'vendor/autoload.php';
 
@@ -46,18 +47,49 @@ foreach ($entities as $entityName => $entityValues) {
 	$freshAnswer[$entityName] = $entityValues[0]->value;
 }
 
-$freshAnswerKey = $freshAnswerValue = '';
 // clear ambiguous questions
-foreach($freshAnswer ?? [] as $key => $value) {
+$freshAnswerKey = $freshAnswerValue = '';
+foreach ($freshAnswer ?? [] as $key => $value) {
 	$freshAnswerKey = $key;
 	$freshAnswerValue = $value;
 	break;
 }
 
+
 $currentNode = $_SESSION['currentNode'] ?? 0;
 
-$senseTree = new Sense\TreeDecision\Tree($currentNode, $freshAnswerKey, $freshAnswerValue, $_SESSION['data'] ?? []);
+$answer = (new Sense\TreeDecision\Tree($currentNode,
+	$freshAnswerKey,
+	$freshAnswerValue,
+	$_SESSION['data'] ?? [])
+)->getResponse();
 
-$_SESSION['chat'][] = '🤖: '.$senseTree->getResponse();
+// repetition progtection
+if (!isset($_SESSION['repetitionCounter'])) {
+	$_SESSION['repetitionCounter'] = 0;
+}
+
+if (isset($_SESSION['lastAnswer']) && $_SESSION['lastAnswer'] == $answer) {
+	$_SESSION['repetitionCounter']++;
+	
+	switch ($_SESSION['repetitionCounter']) {
+		case 1:
+			$answer = 'I didn\'t understand you, please rephrase your answer.';
+			break;
+		case 2:
+			$answer = 'I didn\'t understand you again, please rephrase your answer one more time?';
+			break;
+		case 3:
+			$answer = 'Sorry, I do not understand you at all. Calling human operator now.';
+			break;
+		default:
+			throw new \Exception('Bad count in $_SESSION[repetitionCounter]');
+	}
+} else {
+	$_SESSION['repetitionCounter'] = 0;
+	$_SESSION['lastAnswer'] = $answer;
+}
+
+$_SESSION['chat'][] = '🤖: '.$answer;
 
 header('Location: index.php');
