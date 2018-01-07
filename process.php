@@ -79,11 +79,9 @@ if (isset($_SESSION['lastAnswer']) && $_SESSION['lastAnswer'] == $answer) {
 		case 2:
 			$answer = 'I didn\'t understand you again, please rephrase your answer one more time?';
 			break;
-		case 3:
+		default:
 			$answer = 'Sorry, I do not understand you at all. Calling human operator now.';
 			break;
-		default:
-			throw new \Exception('Bad count in $_SESSION[repetitionCounter]');
 	}
 } else {
 	$_SESSION['repetitionCounter'] = 0;
@@ -92,4 +90,4 @@ if (isset($_SESSION['lastAnswer']) && $_SESSION['lastAnswer'] == $answer) {
 
 $_SESSION['chat'][] = '🤖: '.$answer;
 
-header('Location: index.php');
+header('Location: index.php#form');

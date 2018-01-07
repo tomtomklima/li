@@ -1,0 +1,22 @@
+body {
+	display: flex;
+	background-color: #ccc;
+}
+
+.main {
+	width: 600px;
+	background-color: #eee;
+	padding: 0 20px 40px;
+
+	margin: auto;
+}
+
+.history {
+	max-height: 500px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+form input[type=text] {
+	width: 560px;
+}
