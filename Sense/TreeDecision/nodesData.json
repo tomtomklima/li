@@ -262,40 +262,41 @@
 
 
   "101": {
-	"finalResponse": "You could have hearth stroke. Call na ambulance please."
+	"finalResponse": "You might have hearth stroke. Stay calm, we're calling an ambulance for you.",
+  	"action": "Life-threat! Calling an ambulance."
   },
   "102": {
 	"finalResponse": "You have concussion, probably. Visit your physician immediately",
 	"action": "Life-threat! Calling an ambulance."
   },
   "103": {
-	"finalResponse": "Wait. If the pain persists, call an emergency."
+	"finalResponse": "Wait. You might have concussion, but it's not certain. If the pain persists, call an emergency."
   },
   "104": {
-	"finalResponse": "Rhynitis."
+	"finalResponse": "You probably have a rhynitis."
   },
   "105": {
-	"finalResponse": "Meningitis.",
+	"finalResponse": "You might have meningitis. Stay calm, we're calling an ambulance for you.",
 	  "action": "Life-threat! Calling an ambulance."
   },
   "106": {
-	"finalResponse": "Stroke.",
+	"finalResponse": "You could have a stroke. Stay calm, we're calling an ambulance for you.",
 	  "action": "Life-threat! Calling an ambulance."
   },
   "107": {
-	"finalResponse": "Wait. If the pain persists, call an emergency."
+	"finalResponse": "Wait. You might have a stroke, but it's not certain. If the pain persists, call an emergency."
   },
   "108": {
-	"finalResponse": "Don't worry. If it strikes again, visit your GP.."
+	"finalResponse": "Don't worry, it's normal. If it strikes again, visit your GP"
   },
   "109": {
-	"finalResponse": "Heart attack.",
+	"finalResponse": "You have a heart attack probably. Stay calm, we're calling an ambulance for you.",
 	  "action": "Life-threat! Calling an ambulance."
   },
   "110": {
-	"finalResponse": "Visit your GP."
+	"finalResponse": "You might have some cardiac issues, but is't not acute. Visit cardiac specialist."
   },
   "111": {
-	"finalResponse": "Ulcers"
+	"finalResponse": "You could have ulcers. Visit your GP."
   }
 }
